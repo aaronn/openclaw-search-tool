@@ -55,7 +55,7 @@ research-tool "Explain the React Server Components architecture" > output.md
 
 | Flag | Short | Default | Description |
 |------|-------|---------|-------------|
-| `--model` | `-m` | `openai/gpt-5.2:online` | Model to use. Append `:online` to any model for web search. |
+| `--model` | `-m` | `openai/gpt-5.2:online` | Model to use. Defaults to GPT-5.2 — great for cited answers and docs. Append `:online` to any model for web search. |
 | `--effort` | `-e` | `low` | Reasoning effort: `low`, `medium`, `high`, `xhigh` |
 | `--system` | `-s` | Research assistant | Custom system prompt / persona |
 | `--max-tokens` | | `12800` | Max response tokens |
