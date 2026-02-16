@@ -49,10 +49,10 @@ Can also be set via env var `RESEARCH_EFFORT`.
 
 ### `--model`, `-m` (default: `openai/gpt-5.2:online`)
 
-Which model to use. The `:online` suffix enables live web search and works with **any model on OpenRouter**.
+Which model to use. Defaults to GPT-5.2 with the `:online` suffix because it excels at questions where citations and accurate documentation lookups matter. The `:online` suffix enables live web search and works with **any model on OpenRouter**.
 
 ```bash
-# Default: GPT-5.2 with web search
+# Default: GPT-5.2 with web search (great for docs and cited answers)
 research-tool "current weather in San Francisco"
 
 # Claude with web search
