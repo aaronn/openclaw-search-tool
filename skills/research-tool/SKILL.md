@@ -8,6 +8,8 @@ metadata: {"openclaw": {"emoji": "🔍", "requires": {"bins": ["research-tool"],
 
 Web search for OpenClaw agents, powered by OpenRouter. Ask questions in natural language, get accurate answers with cited sources. Defaults to GPT-5.2 which excels at documentation lookups and citation-heavy research.
 
+> **Note:** Even low-effort queries may take **1 minute or more** to complete. High/xhigh reasoning can take **10+ minutes** depending on complexity. This is normal — the model is searching the web, reading pages, and synthesizing an answer.
+
 The `:online` model suffix gives any model **live web access** — it searches the web, reads pages, cites URLs, and synthesizes an answer.
 
 ## Install
