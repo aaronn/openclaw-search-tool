@@ -4,7 +4,7 @@ description: Search the web using LLMs via OpenRouter. Use for current web data,
 metadata: {"openclaw": {"emoji": "🔍", "requires": {"bins": ["research-tool"], "env": ["OPENROUTER_API_KEY"]}, "primaryEnv": "OPENROUTER_API_KEY", "homepage": "https://github.com/aaronn/openclaw-search-tool"}}
 ---
 
-# OpenClaw Search Tool
+# OpenClaw Research Tool
 
 Web search for OpenClaw agents, powered by OpenRouter. Ask questions in natural language, get accurate answers with cited sources. Defaults to GPT-5.2 which excels at documentation lookups and citation-heavy research.
 
