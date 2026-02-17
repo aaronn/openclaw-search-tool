@@ -1,6 +1,6 @@
 [package]
 name = "openclaw-search-tool"
-version = "0.1.3"
+version = "0.1.4"
 edition = "2021"
 description = "OpenClaw Research Tool — web search for AI agents via OpenRouter LLMs"
 license = "MIT"
