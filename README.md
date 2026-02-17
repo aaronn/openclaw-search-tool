@@ -3,6 +3,11 @@
 Web search for [OpenClaw](https://openclaw.ai) agents, powered by [OpenRouter](https://openrouter.ai). Ask questions in natural language, get accurate answers with cited sources. Defaults to GPT-5.2 which excels at documentation lookups and citation-heavy research.
 
 > **Note:** Even low-effort queries may take **1 minute or more** to complete. High/xhigh reasoning can take **10+ minutes** depending on complexity. This is normal — the model is searching the web, reading pages, and synthesizing an answer.
+>
+> **For OpenClaw agents:** Run research-tool in a **sub-agent** so your main session stays responsive while the search runs:
+> ```
+> sessions_spawn task:"research-tool 'your query here'"
+> ```
 
 ```bash
 research-tool "How do I set reasoning effort parameters on OpenRouter?"
