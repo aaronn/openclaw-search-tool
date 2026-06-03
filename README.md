@@ -1,6 +1,6 @@
 # OpenClaw Research Tool
 
-Web search for [OpenClaw](https://openclaw.ai) agents, powered by [OpenRouter](https://openrouter.ai). Ask questions in natural language, get accurate answers with cited sources. Defaults to GPT-5.2 which excels at documentation lookups and citation-heavy research.
+Web search for [OpenClaw](https://openclaw.ai) agents, powered by [OpenRouter](https://openrouter.ai). Ask questions in natural language, get accurate answers with cited sources. Defaults to GPT-5.5 for strong current-web research, documentation lookups, and citation-heavy synthesis.
 
 > **Note:** Even low-effort queries may take **1 minute or more** to complete. High/xhigh reasoning can take **10+ minutes** depending on complexity. This is normal — the model is searching the web, reading pages, and synthesizing an answer.
 >
@@ -15,7 +15,7 @@ Web search for [OpenClaw](https://openclaw.ai) agents, powered by [OpenRouter](h
 research-tool "How do I set reasoning effort parameters on OpenRouter?"
 ```
 
-Built on [OpenRouter](https://openrouter.ai), which gives any model live web search via the `:online` suffix. The default model is `openai/gpt-5.2:online`, but you can use any model OpenRouter supports.
+Built on [OpenRouter](https://openrouter.ai), which gives any model live web search via the `:online` suffix. The default model is `openai/gpt-5.5:online`, but you can use any model OpenRouter supports.
 
 ## Install
 
@@ -64,7 +64,7 @@ research-tool "Explain the React Server Components architecture" > output.md
 
 | Flag | Short | Default | Description |
 |------|-------|---------|-------------|
-| `--model` | `-m` | `openai/gpt-5.2:online` | Model to use. Defaults to GPT-5.2 — great for cited answers and docs. Append `:online` to any model for web search. |
+| `--model` | `-m` | `openai/gpt-5.5:online` | Model to use. Defaults to GPT-5.5 — great for cited answers and docs. Append `:online` to any model for web search. |
 | `--effort` | `-e` | `low` | Reasoning effort: `low`, `medium`, `high`, `xhigh` |
 | `--system` | `-s` | Research assistant | Custom system prompt / persona |
 | `--max-tokens` | | `12800` | Max response tokens |
@@ -88,7 +88,7 @@ research-tool "Explain the React Server Components architecture" > output.md
 ## Output
 
 ```
-🔍 Researching with openai/gpt-5.2:online (effort: high)...
+🔍 Researching with openai/gpt-5.5:online (effort: high)...
 ✅ Connected — waiting for response...
 
 [response text to stdout]

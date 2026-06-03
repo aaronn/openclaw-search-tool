@@ -1,6 +1,6 @@
-//! research-tool — CLI for querying GPT-5.2:online via OpenRouter
+//! research-tool — CLI for querying GPT-5.5:online via OpenRouter
 //!
-//! A lightweight research assistant that queries OpenAI's GPT-5.2 model
+//! A lightweight research assistant that queries OpenAI's GPT-5.5 model
 //! through OpenRouter with web search and chain-of-thought reasoning.
 //!
 //! ## Quick start
@@ -10,7 +10,7 @@
 //!
 //! ## Features
 //!
-//! - **Web search**: The default model (openai/gpt-5.2:online) has live web
+//! - **Web search**: The default model (openai/gpt-5.5:online) has live web
 //!   access and can cite current sources, prices, news, and documentation.
 //! - **Chain-of-thought reasoning**: Adjustable reasoning effort (low → xhigh)
 //!   for simple lookups vs deep analysis.
@@ -22,7 +22,7 @@
 //! ## Environment variables
 //!
 //! - OPENROUTER_API_KEY (required): Your OpenRouter API key.
-//! - RESEARCH_MODEL: Override default model (default: openai/gpt-5.2:online).
+//! - RESEARCH_MODEL: Override default model (default: openai/gpt-5.5:online).
 //! - RESEARCH_EFFORT: Override default reasoning effort (default: high).
 //!
 //! ## Examples
@@ -46,7 +46,7 @@
 //!   research-tool "Summarize recent changes to the GitHub Actions runner architecture" > research-output.md
 //!
 //!   # Use a different model (e.g., without web search)
-//!   research-tool --model openai/gpt-5.2 "Explain the React Server Components architecture"
+//!   research-tool --model openai/gpt-5.5 "Explain the React Server Components architecture"
 //!
 //!   # Longer timeout for complex web research
 //!   research-tool --timeout 180 "What are the most popular Rust web frameworks in 2026?"
@@ -57,9 +57,9 @@ use anyhow::{Context, Result};
 use clap::Parser;
 use serde::{Deserialize, Serialize};
 
-/// Query GPT-5.2:online for research via OpenRouter.
+/// Query GPT-5.5:online for research via OpenRouter.
 ///
-/// Sends your question to OpenAI's GPT-5.2 model through OpenRouter with
+/// Sends your question to OpenAI's GPT-5.5 model through OpenRouter with
 /// web search enabled and chain-of-thought reasoning. The model can access
 /// live web data, cite sources, and perform deep analysis.
 ///
@@ -116,12 +116,14 @@ struct Args {
     /// AI model to use for the query.
     /// The ":online" suffix enables live web search (recommended).
     /// Without ":online", the model has no web access (training data only).
-    ///   openai/gpt-5.2:online  — GPT-5.2 + web search (default)
-    ///   openai/gpt-5.2         — GPT-5.2 without web search
+    ///   openai/gpt-5.5:online  — GPT-5.5 + web search (default)
+    ///   openai/gpt-5.5         — GPT-5.5 without web search
+    ///   openai/gpt-5.5-pro:online — GPT-5.5 Pro + web search for heavier research
     ///   anthropic/claude-opus-4-6 — Claude Opus (no web search)
     #[arg(
-        long, short,
-        default_value = "openai/gpt-5.2:online",
+        long,
+        short,
+        default_value = "openai/gpt-5.5:online",
         env = "RESEARCH_MODEL",
         verbatim_doc_comment
     )]
@@ -134,7 +136,8 @@ struct Args {
     ///   high   — Deep analysis with careful reasoning (~15-60s)
     ///   xhigh  — Maximum reasoning effort (~30-120s, best for complex questions)
     #[arg(
-        long, short,
+        long,
+        short,
         default_value = "low",
         env = "RESEARCH_EFFORT",
         verbatim_doc_comment
@@ -255,7 +258,10 @@ async fn main() -> Result<()> {
         args.query.join(" ")
     };
 
-    eprintln!("🔍 Researching with {} (effort: {})...", args.model, args.effort);
+    eprintln!(
+        "🔍 Researching with {} (effort: {})...",
+        args.model, args.effort
+    );
 
     let mut client_builder = reqwest::Client::builder();
     if let Some(timeout) = args.timeout {
@@ -313,7 +319,10 @@ async fn main() -> Result<()> {
     let resp = client
         .post("https://openrouter.ai/api/v1/chat/completions")
         .header("Authorization", format!("Bearer {}", api_key))
-        .header("HTTP-Referer", "https://github.com/aaronn/openclaw-search-tool")
+        .header(
+            "HTTP-Referer",
+            "https://github.com/aaronn/openclaw-search-tool",
+        )
         .header("X-Title", "OpenClaw Research Tool")
         .json(&body)
         .send()
@@ -323,7 +332,10 @@ async fn main() -> Result<()> {
     eprintln!("✅ Connected — waiting for response...");
 
     let status = resp.status();
-    let text = resp.text().await.context("❌ Connection to OpenRouter lost while waiting for response. Retry?")?;
+    let text = resp
+        .text()
+        .await
+        .context("❌ Connection to OpenRouter lost while waiting for response. Retry?")?;
 
     timer_handle.abort();
 
@@ -344,11 +356,10 @@ async fn main() -> Result<()> {
         }
     }
 
-    let response: ChatResponse = serde_json::from_str(&text)
-        .context(format!(
-            "Failed to parse API response: {}",
-            &text[..200.min(text.len())]
-        ))?;
+    let response: ChatResponse = serde_json::from_str(&text).context(format!(
+        "Failed to parse API response: {}",
+        &text[..200.min(text.len())]
+    ))?;
 
     if let Some(error) = response.error {
         anyhow::bail!("API error: {}", error.message);

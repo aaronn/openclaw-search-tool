@@ -6,7 +6,7 @@ metadata: {"openclaw": {"emoji": "🔍", "requires": {"bins": ["research-tool"],
 
 # OpenClaw Research Tool
 
-Web search for OpenClaw agents, powered by OpenRouter. Ask questions in natural language, get accurate answers with cited sources. Defaults to GPT-5.2 which excels at documentation lookups and citation-heavy research.
+Web search for OpenClaw agents, powered by OpenRouter. Ask questions in natural language, get accurate answers with cited sources. Defaults to GPT-5.5 for strong current-web research, documentation lookups, and citation-heavy synthesis.
 
 > **Note:** Even low-effort queries may take **1 minute or more** to complete. High/xhigh reasoning can take **10+ minutes** depending on complexity. This is normal — the model is searching the web, reading pages, and synthesizing an answer.
 >
@@ -67,19 +67,22 @@ research-tool --effort xhigh "Deep analysis of React Server Components vs tradit
 
 Can also be set via env var `RESEARCH_EFFORT`.
 
-### `--model`, `-m` (default: `openai/gpt-5.2:online`)
+### `--model`, `-m` (default: `openai/gpt-5.5:online`)
 
-Which model to use. Defaults to GPT-5.2 with the `:online` suffix because it excels at questions where citations and accurate documentation lookups matter. The `:online` suffix enables live web search and works with **any model on OpenRouter**.
+Which model to use. Defaults to GPT-5.5 with the `:online` suffix because it excels at questions where citations and accurate documentation lookups matter. The `:online` suffix enables live web search and works with **any model on OpenRouter**.
 
 ```bash
-# Default: GPT-5.2 with web search (great for docs and cited answers)
+# Default: GPT-5.5 with web search (great for docs and cited answers)
 research-tool "current weather in San Francisco"
 
 # Claude with web search
 research-tool -m "anthropic/claude-sonnet-4-20250514:online" "Summarize recent changes to the OpenAI API"
 
-# GPT-5.2 without web search (training data only)
-research-tool -m "openai/gpt-5.2" "Explain the React Server Components architecture"
+# GPT-5.5 without web search (training data only)
+research-tool -m "openai/gpt-5.5" "Explain the React Server Components architecture"
+
+# GPT-5.5 Pro with web search for heavier research
+research-tool -m "openai/gpt-5.5-pro:online" "Compare long-running AI research workflows"
 
 # Any OpenRouter model
 research-tool -m "google/gemini-2.5-pro:online" "Compare React vs Svelte in 2026"
@@ -119,7 +122,7 @@ No timeout by default — queries run until the model finishes. Set this only if
 - **stderr**: Progress status, reasoning traces, and token usage
 
 ```
-🔍 Researching with openai/gpt-5.2:online (effort: high)...
+🔍 Researching with openai/gpt-5.5:online (effort: high)...
 ✅ Connected — waiting for response...
 
 [response text on stdout]

@@ -1,10 +1,10 @@
 [package]
 name = "openclaw-search-tool"
-version = "0.1.5"
+version = "0.1.6"
 edition = "2021"
 description = "OpenClaw Research Tool — web search for AI agents via OpenRouter LLMs"
 license = "MIT"
-repository = "https://github.com/aaronn/openclaw-research-tool"
+repository = "https://github.com/aaronn/openclaw-search-tool"
 keywords = ["openclaw", "research", "openrouter", "llm", "web-search"]
 categories = ["command-line-utilities"]
 
